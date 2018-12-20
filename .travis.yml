@@ -1,0 +1,10 @@
+---
+
+dist: xenial
+lanaguage: minimal
+script:
+  - ./trigger.sh
+notifications:
+  email:
+    on_failure: always
+    on_success: change
