@@ -29,8 +29,8 @@ echo "Checking for releases of ${APP_NAME}"
 AVAILABLE_TAGS=$( ./get_available_tags.sh )
 
 for TAG in ${AVAILABLE_TAGS}; do
-	if tag_exists ${TAG}; then
-		echo "Tag already exists: ${TAG}"
+	if tag_exists ${TAG%-*}; then
+		echo "Tag already exists: ${TAG%-*}"
 	else
 		echo "Bulding tag: ${TAG}"
 		./build_tag.sh ${TAG}
