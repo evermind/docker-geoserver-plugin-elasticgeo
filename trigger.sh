@@ -8,8 +8,8 @@ fail() {
 }
 
 tag_exists() {
-	TAG=$1
-	HTTP_STATUS=$( curl -s -o /dev/null -w '%{http_code}' https://index.docker.io/v1/repositories/${DOCKER_HUB_REPO}/tags/${TAG} )
+	_TAG=$1
+	HTTP_STATUS=$( curl -s -o /dev/null -w '%{http_code}' https://index.docker.io/v1/repositories/${DOCKER_HUB_REPO}/tags/${_TAG} )
 	[ "$HTTP_STATUS" -ge 200 -a "$HTTP_STATUS" -le 299 ] || return 1
 	return 0
 }
@@ -29,6 +29,7 @@ echo "Checking for releases of ${APP_NAME}"
 AVAILABLE_TAGS=$( ./get_available_tags.sh )
 
 for TAG in ${AVAILABLE_TAGS}; do
+echo $TAG
 	if tag_exists ${TAG%-*}; then
 		echo "Tag already exists: ${TAG%-*}"
 	else
